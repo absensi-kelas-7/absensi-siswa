@@ -1,328 +1,55 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Absensi Siswa</title>
-
+<title>Absensi 7D - Auto Gmail</title>
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background: linear-gradient(135deg, #0f172a, #1e3a8a);
-  min-height: 100vh;
-  padding: 25px 15px;
-  color: white;
-}
-
-.container {
-  max-width: 500px;
-  margin: auto;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.header h1 {
-  font-size: 30px;
-  margin-bottom: 8px;
-}
-
-.header p {
-  color: #cbd5e1;
-}
-
-.card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 7px;
-  font-weight: bold;
-}
-
-input, select {
-  width: 100%;
-  padding: 13px;
-  border: none;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  outline: none;
-  font-size: 15px;
-}
-
-.status {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.status button {
-  padding: 13px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  background: #e2e8f0;
-  color: #0f172a;
-  font-weight: bold;
-}
-
-.status button.active {
-  background: #22c55e;
-  color: white;
-}
-
-.absen-btn {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 13px;
-  background: #2563eb;
-  color: white;
-  font-size: 17px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.absen-btn:hover {
-  background: #1d4ed8;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-th, td {
-  padding: 10px 5px;
-  text-align: left;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-}
-
-.empty {
-  text-align: center;
-  color: #cbd5e1;
-  padding: 20px;
-}
-
-.hadir {
-  color: #4ade80;
-}
-
-.izin {
-  color: #facc15;
-}
-
-.sakit {
-  color: #38bdf8;
-}
-
-.alpa {
-  color: #f87171;
-}
-
-.hapus {
-  background: #ef4444;
-  border: none;
-  color: white;
-  padding: 6px 9px;
-  border-radius: 7px;
-  cursor: pointer;
-}
+body{font-family:sans-serif;background:#f0f4ff;margin:0;padding:15px}
+.card{background:white;padding:20px;border-radius:15px;max-width:400px;margin:auto}
+h2{text-align:center;color:#2b5cff}
+input,select{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc;box-sizing:border-box}
+button{width:100%;padding:12px;border:none;border-radius:8px;background:#2b5cff;color:white;font-weight:bold;font-size:16px;margin-top:10px}
+.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.status-btn{padding:12px;border-radius:8px;border:2px solid #eee;background:#f9f9f9;cursor:pointer;text-align:center}
+.status-btn.active{background:#2b5cff;color:white}
+.item{background:#f9fbff;padding:10px;border-radius:8px;margin-bottom:8px;display:flex;justify-content:space-between}
 </style>
 </head>
-
 <body>
-
-<div class="container">
-
-  <div class="header">
-    <h1>📋 ABSENSI SISWA</h1>
-    <p>Silakan isi data kehadiran</p>
-  </div>
-
-  <div class="card">
-
-    <label>Nama Siswa</label>
-    <input type="text" id="nama" placeholder="Masukkan nama siswa">
-
-    <label>Kelas</label>
-    <input type="text" id="kelas" placeholder="Contoh: 9A">
-
-    <label>Tanggal</label>
-    <input type="date" id="tanggal">
-
-    <label>Status Kehadiran</label>
-
-    <div class="status">
-      <button onclick="pilihStatus('Hadir', this)" class="active">✅ Hadir</button>
-      <button onclick="pilihStatus('Izin', this)">📝 Izin</button>
-      <button onclick="pilihStatus('Sakit', this)">🤒 Sakit</button>
-      <button onclick="pilihStatus('Alpa', this)">❌ Alpa</button>
-    </div>
-
-    <button class="absen-btn" onclick="absen()">
-      Simpan Absensi
-    </button>
-
-  </div>
-
-  <div class="card">
-
-    <h2 style="margin-bottom:15px;">📊 Data Absensi</h2>
-
-    <input
-      type="text"
-      id="search"
-      placeholder="🔎 Cari nama..."
-      oninput="tampilkanData()"
-    >
-
-    <div style="overflow-x:auto;">
-      <table>
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>Kelas</th>
-            <th>Status</th>
-            <th>Tanggal</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody id="dataAbsensi"></tbody>
-      </table>
-    </div>
-
-  </div>
-
+<div class="card">
+<h2>ABSENSI 7D</h2>
+<input id="nama" placeholder="Nama lengkap">
+<select id="kelas"><option>7D</option><option>7D</option><option>7B</option></select>
+<div class="status-grid">
+<div class="status-btn" data-v="Hadir">Hadir</div>
+<div class="status-btn" data-v="Sakit">Sakit</div>
+<div class="status-btn" data-v="Izin">Izin</div>
+<div class="status-btn" data-v="Alpa">Alpa</div>
 </div>
-
+<button onclick="kirim()">KIRIM KE GMAIL</button>
+<p id="msg" style="text-align:center;color:green"></p>
+<div id="list"></div>
+</div>
 <script>
-
-let statusDipilih = "Hadir";
-
-let data = JSON.parse(localStorage.getItem("absensi")) || [];
-
-document.getElementById("tanggal").value =
-  new Date().toISOString().split("T")[0];
-
-function pilihStatus(status, tombol) {
-
-  statusDipilih = status;
-
-  document.querySelectorAll(".status button")
-    .forEach(btn => btn.classList.remove("active"));
-
-  tombol.classList.add("active");
+let statusPilih="", dataAbsen=JSON.parse(localStorage.getItem("absen7D")||"[]");
+document.querySelectorAll(".status-btn").forEach(b=>{
+ b.onclick=()=>{document.querySelectorAll(".status-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");statusPilih=b.dataset.v;}
+});
+function render(){document.getElementById("list").innerHTML=dataAbsen.map((d,i)=>`<div class="item"><span><b>${d.nama}</b> ${d.kelas} - ${d.status}<br><small>${d.tanggal}</small></span><span onclick="hapus(${i})" style="color:red">X</span></div>`).join("");}
+render();
+function hapus(i){dataAbsen.splice(i,1);localStorage.setItem("absen7D",JSON.stringify(dataAbsen));render();}
+async function kirim(){
+ let nama=document.getElementById("nama").value.trim();
+ let kelas=document.getElementById("kelas").value;
+ if(!nama||!statusPilih){alert("Isi nama dan status dulu");return;}
+ let tanggal=new Date().toLocaleString("id-ID");
+ dataAbsen.unshift({nama,kelas,status:statusPilih,tanggal});
+ localStorage.setItem("absen7D",JSON.stringify(dataAbsen));render();
+ document.getElementById("msg").innerText="Mengirim ke doyzzkaciw@gmail.com...";
+ await fetch("https://formsubmit.co/ajax/doyzzkaciw@gmail.com",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({subject:`ABSEN: ${nama} - ${statusPilih}`,Nama:nama,Kelas:kelas,Status:statusPilih,Tanggal:tanggal})});
+ document.getElementById("msg").innerText="✅ Terkirim ke Gmail!";
+ document.getElementById("nama").value="";
 }
-
-function absen() {
-
-  const nama = document.getElementById("nama").value.trim();
-  const kelas = document.getElementById("kelas").value.trim();
-  const tanggal = document.getElementById("tanggal").value;
-
-  if (!nama || !kelas || !tanggal) {
-    alert("Lengkapi nama, kelas, dan tanggal!");
-    return;
-  }
-
-  const dataBaru = {
-    id: Date.now(),
-    nama: nama,
-    kelas: kelas,
-    status: statusDipilih,
-    tanggal: tanggal
-  };
-
-  data.push(dataBaru);
-
-  localStorage.setItem("absensi", JSON.stringify(data));
-
-  document.getElementById("nama").value = "";
-
-  tampilkanData();
-
-  alert("✅ Absensi berhasil disimpan!");
-}
-
-function tampilkanData() {
-
-  const tbody = document.getElementById("dataAbsensi");
-  const search = document.getElementById("search").value.toLowerCase();
-
-  tbody.innerHTML = "";
-
-  const hasil = data.filter(item =>
-    item.nama.toLowerCase().includes(search)
-  );
-
-  if (hasil.length === 0) {
-
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="5" class="empty">
-          Belum ada data absensi
-        </td>
-      </tr>
-    `;
-
-    return;
-  }
-
-  hasil.forEach(item => {
-
-    let classStatus = item.status.toLowerCase();
-
-    tbody.innerHTML += `
-      <tr>
-        <td>${item.nama}</td>
-        <td>${item.kelas}</td>
-        <td class="${classStatus}">
-          ${item.status}
-        </td>
-        <td>${item.tanggal}</td>
-        <td>
-          <button class="hapus" onclick="hapusData(${item.id})">
-            Hapus
-          </button>
-        </td>
-      </tr>
-    `;
-
-  });
-}
-
-function hapusData(id) {
-
-  if (!confirm("Hapus data absensi ini?")) return;
-
-  data = data.filter(item => item.id !== id);
-
-  localStorage.setItem("absensi", JSON.stringify(data));
-
-  tampilkanData();
-}
-
-tampilkanData();
-
 </script>
-
 </body>
 </html>
