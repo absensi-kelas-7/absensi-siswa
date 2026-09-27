@@ -29,25 +29,23 @@
     </div>
     <div>
       <label class="text-[11px] text-zinc-400">Status</label>
-      <div class="grid grid-cols-4 gap-2 mt-1">
-        <label><input type="radio" name="status" value="Sakit" class="peer hidden"><div class="peer-checked:bg-yellow-600 bg-zinc-800 border border-zinc-700 rounded-xl py-2.5 text-center text-xs font-bold cursor-pointer">Sakit</div></label>
-        <label><input type="radio" name="status" value="Izin" class="peer hidden"><div class="peer-checked:bg-blue-600 bg-zinc-800 border border-zinc-700 rounded-xl py-2.5 text-center text-xs font-bold cursor-pointer">Izin</div></label>
-        <label><input type="radio" name="status" value="Alpha" class="peer hidden"><div class="peer-checked:bg-red-600 bg-zinc-800 border border-zinc-700 rounded-xl py-2.5 text-center text-xs font-bold cursor-pointer">Alpha</div></label>
+      <div class="grid grid-cols-2 gap-2 mt-1">
+        <label><input type="radio" name="status" value="Sakit" checked class="peer hidden"><div class="peer-checked:bg-yellow-600 bg-zinc-800 border border-zinc-700 rounded-xl py-3 text-center text-sm font-bold cursor-pointer">🤒 Sakit</div></label>
+        <label><input type="radio" name="status" value="Izin" class="peer hidden"><div class="peer-checked:bg-blue-600 bg-zinc-800 border border-zinc-700 rounded-xl py-3 text-center text-sm font-bold cursor-pointer">📝 Izin</div></label>
       </div>
     </div>
     <button onclick="tambah()" class="w-full bg-purple-600 font-bold py-3 rounded-xl text-sm active:scale-95">+ TAMBAH KE DAFTAR</button>
   </div>
 
-  <div class="grid grid-cols-4 gap-2 mt-4 text-[10px] text-center">
+  <div class="grid grid-cols-2 gap-2 mt-4 text-[10px] text-center">
     <div class="bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 py-2 rounded-xl">Sakit<br><b id="cS" class="text-sm">0</b></div>
     <div class="bg-blue-500/20 border border-blue-500/30 text-blue-400 py-2 rounded-xl">Izin<br><b id="cI" class="text-sm">0</b></div>
-    <div class="bg-red-500/20 border border-red-500/30 text-red-400 py-2 rounded-xl">Alpha<br><b id="cA" class="text-sm">0</b></div>
   </div>
 
   <div id="list" class="space-y-2 mt-4"></div>
 
   <button onclick="kirim()" class="w-full mt-6 bg-green-500 font-bold py-5 rounded-2xl text-lg active:scale-95 transition">
-    📤 KIRIM ABSEN🤧
+    📤 KIRIM ABSEN KE GRUP WA 🤧
   </button>
   <button onclick="resetAll()" class="w-full mt-2 text-zinc-600 text-[11px] py-2">Reset Semua</button>
 </div>
@@ -68,24 +66,22 @@ function tambah(){
 function render(){
   let list = document.getElementById('list');
   list.innerHTML='';
-  let H=0,S=0,I=0,A=0;
+  let S=0,I=0;
   data.forEach((d,i)=>{
-    if(d.status=='Hadir')H++; if(d.status=='Sakit')S++; if(d.status=='Izin')I++; if(d.status=='Alpha')A++;
-    let color = d.status=='Hadir'?'text-green-400': d.status=='Sakit'?'text-yellow-400': d.status=='Izin'?'text-blue-400':'text-red-400';
+    if(d.status=='Sakit')S++; if(d.status=='Izin')I++;
+    let color = d.status=='Sakit'?'text-yellow-400':'text-blue-400';
     list.innerHTML+=`<div class="flex justify-between items-center bg-zinc-900 p-3 rounded-xl border border-zinc-800"><div><p class="text-sm font-bold">${d.nama} <span class="text-zinc-500 font-normal">${d.kelas}</span></p><p class="text-[11px] ${color}">${d.status}</p></div><button onclick="hapus(${i})" class="bg-zinc-800 px-3 py-1 rounded-full text-xs">✕</button></div>`;
   });
-  document.getElementById('cH').innerText=H; document.getElementById('cS').innerText=S; document.getElementById('cI').innerText=I; document.getElementById('cA').innerText=A;
+  document.getElementById('cS').innerText=S; document.getElementById('cI').innerText=I;
 }
 function hapus(i){ data.splice(i,1); render(); }
 function resetAll(){ if(confirm('Hapus semua?')){ data=[]; render(); } }
 function kirim(){
   if(data.length==0) return alert('Tambah siswa dulu pung!');
   let tgl = new Date().toLocaleDateString('id-ID');
-  let H = data.filter(d=>d.status=='Hadir');
   let S = data.filter(d=>d.status=='Sakit');
   let I = data.filter(d=>d.status=='Izin');
-  let A = data.filter(d=>d.status=='Alpha');
-  let pesan = `*📋 ABSENSI KELAS 7 (7A-7D)*\n📅 ${tgl}\n━━━━━━━━━━━━\n\n✅ HADIR (${H.length}): ${H.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}\n🤒 SAKIT (${S.length}): ${S.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}\n📝 IZIN (${I.length}): ${I.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}\n❌ ALPHA (${A.length}): ${A.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}`;
+  let pesan = `*📋 ABSENSI KELAS 7 (7A-7D)*\n📅 ${tgl}\n━━━━━━━━━━━━\n\n🤒 SAKIT (${S.length}): ${S.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}\n📝 IZIN (${I.length}): ${I.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}`;
   navigator.clipboard.writeText(pesan).then(()=>{ window.open(LINK_GRUP, '_blank'); });
 }
 </script>
