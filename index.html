@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Absen Kelas 7 Lengkap</title>
+<title>Absen Kelas 7 - Final</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#0f0f0f] text-white min-h-screen p-4">
@@ -37,23 +37,22 @@
     <button onclick="tambah()" class="w-full bg-purple-600 font-bold py-3 rounded-xl text-sm active:scale-95">+ TAMBAH KE DAFTAR</button>
   </div>
 
-  <div class="grid grid-cols-2 gap-2 mt-4 text-[10px] text-center">
-    <div class="bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 py-2 rounded-xl">Sakit<br><b id="cS" class="text-sm">0</b></div>
-    <div class="bg-blue-500/20 border border-blue-500/30 text-blue-400 py-2 rounded-xl">Izin<br><b id="cI" class="text-sm">0</b></div>
-  </div>
-
   <div id="list" class="space-y-2 mt-4"></div>
 
-  <button onclick="kirim()" class="w-full mt-6 bg-green-500 font-bold py-5 rounded-2xl text-lg active:scale-95 transition">
-    📤 KIRIM ABSEN 🤧
+  <div class="text-center text-[11px] text-zinc-500 mt-3">Total: <b id="total" class="text-white">0</b> siswa</div>
+
+  <button onclick="kirim()" class="w-full mt-4 bg-green-500 font-bold py-5 rounded-2xl text-lg active:scale-95 transition">
+    📤 KIRIM ABSEN🤧
   </button>
   <button onclick="resetAll()" class="w-full mt-2 text-zinc-600 text-[11px] py-2">Reset Semua</button>
 </div>
 
 <script>
-const LINK_GRUP = "https://chat.whatsapp.com/CAckr81mrKSHL6nh7YpV79";
+const LINK_GRUP = "https://chat.whatsapp.com/Ix9OeiN9pbgF0KwvXJZ5Wc";
+
 let data = [];
 document.getElementById('tgl').innerText = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+
 function tambah(){
   let nama = document.getElementById('nama').value.trim();
   let kelas = document.getElementById('kelas').value;
@@ -66,22 +65,19 @@ function tambah(){
 function render(){
   let list = document.getElementById('list');
   list.innerHTML='';
-  let S=0,I=0;
   data.forEach((d,i)=>{
-    if(d.status=='Sakit')S++; if(d.status=='Izin')I++;
     let color = d.status=='Sakit'?'text-yellow-400':'text-blue-400';
     list.innerHTML+=`<div class="flex justify-between items-center bg-zinc-900 p-3 rounded-xl border border-zinc-800"><div><p class="text-sm font-bold">${d.nama} <span class="text-zinc-500 font-normal">${d.kelas}</span></p><p class="text-[11px] ${color}">${d.status}</p></div><button onclick="hapus(${i})" class="bg-zinc-800 px-3 py-1 rounded-full text-xs">✕</button></div>`;
   });
-  document.getElementById('cS').innerText=S; document.getElementById('cI').innerText=I;
+  document.getElementById('total').innerText=data.length;
 }
 function hapus(i){ data.splice(i,1); render(); }
 function resetAll(){ if(confirm('Hapus semua?')){ data=[]; render(); } }
 function kirim(){
   if(data.length==0) return alert('Tambah siswa dulu pung!');
-  let tgl = new Date().toLocaleDateString('id-ID');
-  let S = data.filter(d=>d.status=='Sakit');
-  let I = data.filter(d=>d.status=='Izin');
-  let pesan = `*📋 ABSENSI KELAS 7 (7A-7D)*\n📅 ${tgl}\n━━━━━━━━━━━━\n\n🤒 SAKIT (${S.length}): ${S.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}\n📝 IZIN (${I.length}): ${I.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}`;
+  let tgl = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  let listGabung = data.map((d,i)=> `${i+1}. ${d.nama} - ${d.kelas} (${d.status})`).join('\n');
+  let pesan = `📋 *ABSENSI KELAS 7 (7A-7D)*\n📅 ${tgl}\n━━━━━━━━━━━━\n\n📝 *DAFTAR TIDAK MASUK (${data.length} siswa):*\n${listGabung}`;
   navigator.clipboard.writeText(pesan).then(()=>{ window.open(LINK_GRUP, '_blank'); });
 }
 </script>
