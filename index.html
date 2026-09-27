@@ -2,95 +2,108 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SEVENNDE SMRKUBA - 7D</title>
+<title>SEVENNDE GRAFFITI </title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Impact,Arial Black,sans-serif}
-body{height:100vh;width:100vw;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center}
-#bg{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,#4b1fa7,#1a0a3a);animation:bgmove 6s infinite alternate}
-@keyframes bgmove{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(40deg)}}
-#blur{position:fixed;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(30px);background:rgba(0,0,0,0.3)}
-
-/* Nametag Style kayak foto lu */
-#card{position:relative;z-index:10;width:96vw;max-width:520px;background:white;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.7);transform:rotate(-1deg);animation:float 3s infinite ease-in-out}
-@keyframes float{0%,100%{transform:rotate(-1deg) translateY(0)}50%{transform:rotate(1deg) translateY(-8px)}}
-#top-red{background:#e10600;padding:18px 20px 10px;text-align:center;position:relative}
-#top-red h1{color:white;font-size:54px;letter-spacing:4px;line-height:1;margin:0;text-shadow:2px 2px 0 rgba(0,0,0,0.2)}
-#top-red p{color:white;font-size:18px;margin-top:2px;letter-spacing:2px;font-family:Arial Black}
-#spray{position:absolute;left:50%;top:68%;transform:translateX(-50%);width:180px;height:18px;background:#a80000;border-radius:50%;filter:blur(3px);opacity:0.8}
-
-#mid{padding:15px 20px 10px;background:white;position:relative;min-height:160px;display:flex;align-items:center;justify-content:center}
-#graffiti{font-family:Impact; font-size:52px; line-height:0.85; color:#4b1fa7; text-transform:lowercase; transform:rotate(-3deg) skew(-5deg); text-shadow:3px 3px 0 #fff, 6px 6px 0 #2a0f5e, 0 0 20px rgba(75,31,167,0.5); letter-spacing:-1px; text-align:center}
-#angkatan{position:absolute;right:10px;top:15px;writing-mode:vertical-rl;font-size:11px;letter-spacing:3px;font-family:Arial Black;color:#111;font-weight:900}
-#bottom-red{background:#e10600;height:26px;border-radius:0 0 28px 28px;width:100%}
-
-#absen-area{padding:20px;background:#f8f8ff}
-#grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-.day{background:white;border:2px solid #e10600;border-radius:14px;padding:10px 2px;text-align:center;transition:0.4s;transform:scale(0);animation:pop 0.5s forwards;cursor:pointer}
-.day:nth-child(1){animation-delay:0.1s}.day:nth-child(2){animation-delay:0.2s}.day:nth-child(3){animation-delay:0.3s}.day:nth-child(4){animation-delay:0.4s}.day:nth-child(5){animation-delay:0.5s}.day:nth-child(6){animation-delay:0.6s}.day:nth-child(7){animation-delay:0.7s}
-@keyframes pop{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
-.day.active{background:#e10600;color:white;transform:scale(1.1)!important;box-shadow:0 5px 15px rgba(225,6,0,0.4);animation:pulse 1s infinite}
-.day.done{background:#4b1fa7;color:white;border-color:#4b1fa7;box-shadow:0 0 15px #4b1fa7}
-@keyframes pulse{0%,100%{transform:scale(1.1)}50%{transform:scale(1.15)}}
-.day b{font-size:18px;display:block}.day span{font-size:9px}
-
-#btn{width:100%;margin-top:15px;padding:16px;background:#111;color:white;border:none;border-radius:50px;font-size:16px;font-weight:900;letter-spacing:2px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.3);transition:0.2s}
-#btn:active{transform:scale(0.95)}
-#btn.done{background:#4b1fa7}
-#bar{height:8px;background:#eee;border-radius:10px;margin-top:12px;overflow:hidden}
-#fill{height:100%;width:0%;background:linear-gradient(90deg,#e10600,#4b1fa7);transition:1s}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Impact,Arial Black}
+body{min-height:100vh;background:#000;display:flex;justify-content:center;padding:12px}
+#bg{position:fixed;inset:0;background:radial-gradient(circle at 50% 20%,#6a2cff,#1a0a3a,#000);z-index:0;animation:hue 8s infinite alternate}
+@keyframes hue{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(30deg)}}
+#blur{position:fixed;inset:0;backdrop-filter:blur(28px);background:rgba(0,0,0,0.5);z-index:1}
+#wrap{position:relative;z-index:10;width:100%;max-width:520px}
+#card{background:white;border-radius:26px;overflow:hidden;border:4px solid black;box-shadow:0 0 40px rgba(106,44,255,0.6),0 20px 60px rgba(0,0,0,0.8);transform:rotate(-0.5deg)}
+#top{background:#e10600;padding:16px 15px 8px;text-align:center;position:relative}
+#top h1{color:white;font-size:50px;letter-spacing:4px;line-height:1;text-shadow:2px 2px 0 rgba(0,0,0,0.3)}
+#top p{color:white;font-size:15px;letter-spacing:3px;margin-top:2px}
+#spray{position:absolute;left:50%;top:72%;transform:translateX(-50%);width:170px;height:16px;background:#9e0000;border-radius:50%;filter:blur(3px)}
+#mid{background:white;padding:18px 15px;min-height:140px;display:flex;align-items:center;justify-content:center;position:relative;border-top:4px solid black;border-bottom:4px solid black}
+#graffiti{font-family:Impact; font-size:52px; line-height:0.85; color:#4b1fa7; text-transform:lowercase; transform:rotate(-3deg) skew(-6deg); text-shadow:3px 3px 0 #fff, 7px 7px 0 #2a0f5e, 0 0 25px rgba(75,31,167,0.7); text-align:center}
+#angkatan{position:absolute;right:6px;top:10px;writing-mode:vertical-rl;font-size:10px;letter-spacing:3px;font-weight:900}
+#content{padding:14px;background:#f5f5f5;max-height:68vh;overflow-y:auto}
+#nama{width:100%;padding:12px;border:3px solid black;border-radius:12px;font-family:Arial Black;font-size:13px;margin-bottom:10px}
+.month{margin-bottom:14px;background:white;border:2.5px solid black;border-radius:14px;padding:10px}
+.month h3{background:black;color:white;padding:4px 12px;border-radius:20px;font-size:11px;display:inline-block;margin-bottom:8px;letter-spacing:1px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.d{border:1.5px solid #ddd;border-radius:8px;padding:5px 1px;text-align:center;font-size:10px;cursor:pointer}
+.d.head{border:none;color:#888;font-size:8px}
+.d.done{background:#4b1fa7;color:white;border-color:#4b1fa7;box-shadow:0 0 10px #4b1fa7}
+.d.today{border-color:#e10600;background:#e10600;color:white;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+#btns{display:flex;gap:8px;position:sticky;bottom:0;background:#f5f5f5;padding-top:10px}
+.btn{flex:1;padding:14px;border:3px solid black;border-radius:30px;font-weight:900;cursor:pointer;font-size:13px}
+#kirim{background:linear-gradient(90deg,#4b1fa7,#e10600);color:white;box-shadow:0 6px 20px rgba(75,31,167,0.5)}
+#reset{background:black;color:white}
 </style>
 </head>
 <body>
 <div id="bg"></div>
 <div id="blur"></div>
-
+<div id="wrap">
 <div id="card">
-  <div id="top-red">
-    <h1>HELLO</h1>
-    <p>MY CLASS</p>
-    <div id="spray"></div>
+  <div id="top"><h1>HELLO</h1><p>MY CLASS</p><div id="spray"></div></div>
+  <div id="mid"><div id="graffiti">sevennde<br>smp kuba</div><div id="angkatan">ANGKATAN 2026</div></div>
+  <div style="background:#e10600;height:22px;border-top:4px solid black"></div>
+  <div id="content">
+    <input id="nama" placeholder="NAMA LU (contoh: Doyz - 7D)">
+    <div id="list"></div>
+    <div id="btns">
+      <button class="btn" id="reset">RESET</button>
+      <button class="btn" id="kirim">📧 KIRIM ABSEN</button>
+    </div>
+    <p style="font-family:Arial;font-size:9px;text-align:center;margin-top:8px;color:#666">AUTO KIRIM KE: doyzzkaciw@gmail.com • ABSEN SEP 2026 - JULI 2027</p>
   </div>
-  <div id="mid">
-    <div id="graffiti">sevennde<br>smrkuba</div>
-    <div id="angkatan">ANGKATAN 2026</div>
-  </div>
-  <div id="bottom-red"></div>
-  
-  <div id="absen-area">
-    <div id="grid"></div>
-    <button id="btn">ABSEN HARI INI 👇</button>
-    <div id="bar"><div id="fill"></div></div>
-    <p style="text-align:center;font-family:sans-serif;font-size:11px;margin-top:8px;color:#666">Streak: <span id="st">0</span>/7 • SEVENNDE SMRKUBA</p>
-  </div>
+</div>
 </div>
 
 <script>
-let days=["SEN","SEL","RAB","KAM","JUM","SAB","MIN"];
-let data=JSON.parse(localStorage.getItem('smrkuba7d')||'[]');
-let grid=document.getElementById('grid');
+let list=document.getElementById('list');
+let data=JSON.parse(localStorage.getItem('smrkubaGraffitiJuli')||'{}');
+let start=new Date();
+let end=new Date(2027,6,31);
+
 function render(){
-  grid.innerHTML='';
-  for(let i=0;i<7;i++){
-    let d=document.createElement('div'); d.className='day';
-    if(data.includes(i)) d.classList.add('done');
-    if(i==data.length && data.length<7) d.classList.add('active');
-    d.innerHTML=`<b>${i+1}</b><span>${days[i]}</span><div style="margin-top:3px;font-size:16px">${data.includes(i)?'✅':i==data.length?'🔥':'🔒'}</div>`;
-    grid.appendChild(d);
+  list.innerHTML='';
+  let cur=new Date(start.getFullYear(),start.getMonth(),1);
+  let today=new Date().toISOString().slice(0,10);
+  while(cur<=end){
+    let y=cur.getFullYear(), m=cur.getMonth();
+    let box=document.createElement('div'); box.className='month';
+    box.innerHTML=`<h3>${cur.toLocaleDateString('id-ID',{month:'long',year:'numeric'}).toUpperCase()}</h3><div class="grid"></div>`;
+    let grid=box.querySelector('.grid');
+    ['Mg','Sn','Sl','Rb','Km','Jm','Sb'].forEach(h=>{let d=document.createElement('div');d.className='d head';d.innerText=h;grid.appendChild(d);});
+    let first=new Date(y,m,1).getDay();
+    for(let i=0;i<first;i++) grid.appendChild(document.createElement('div'));
+    let total=new Date(y,m+1,0).getDate();
+    for(let d=1;d<=total;d++){
+      let str=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      let el=document.createElement('div'); el.className='d';
+      if(data[str]) el.classList.add('done');
+      if(str==today) el.classList.add('today');
+      el.innerHTML=`${d}<br>${data[str]?'✅':'⚪'}`;
+      el.onclick=()=>{data[str]=!data[str]; if(!data[str]) delete data[str]; localStorage.setItem('smrkubaGraffitiJuli',JSON.stringify(data)); render(); if(navigator.vibrate) navigator.vibrate(25);};
+      grid.appendChild(el);
+    }
+    list.appendChild(box);
+    cur.setMonth(cur.getMonth()+1);
   }
-  document.getElementById('fill').style.width=(data.length/7*100)+'%';
-  document.getElementById('st').innerText=data.length;
-  let b=document.getElementById('btn');
-  if(data.length>=7){b.innerText='🎉 TAMAT 7D ANGKATAN 2026!'; b.classList.add('done'); b.disabled=true;}
-  else b.innerText=`ABSEN HARI ${data.length+1} 🔥`;
 }
-document.getElementById('btn').onclick=()=>{
-  if(data.length>=7) return;
-  data.push(data.length);
-  localStorage.setItem('smrkuba7d',JSON.stringify(data));
-  if(navigator.vibrate) navigator.vibrate([40,20,40]);
-  document.getElementById('card').animate([{transform:'scale(1) rotate(-1deg)'},{transform:'scale(1.05) rotate(1deg)'},{transform:'scale(1) rotate(-1deg)'}],{duration:300});
-  render();
+
+document.getElementById('kirim').onclick=async()=>{
+  let nama=document.getElementById('nama').value||'SEVENNDE SMRKUBA';
+  let hadir=Object.keys(data).filter(k=>data[k]).sort();
+  let txt=`ABSEN GRAFFITI SEVENNDE SMRKUBA\nNama: ${nama}\nTotal Hadir: ${hadir.length} hari\nPeriode: Sep 2026 - Juli 2027\n\nDaftar Hadir:\n${hadir.join('\n')}\n\nWaktu Kirim: ${new Date().toLocaleString('id-ID')}`;
+  let btn=document.getElementById('kirim'); btn.innerText='MENGIRIM...'; btn.disabled=true;
+  try{
+    await fetch('https://formsubmit.co/ajax/doyzzkaciw@gmail.com',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subject:`[ABSEN GRAFFITI] ${nama} - ${hadir.length} hari`,message:txt,_captcha:'false'})});
+    alert('✅ GRAFFITI ABSEN BERHASIL TERKIRIM KE\n\ndoyzzkaciw@gmail.com\n\nCek inbox Gmail lu pung!');
+    btn.innerText='✅ TERKIRIM';
+  }catch{
+    window.location.href=`mailto:doyzzkaciw@gmail.com?subject=ABSEN GRAFFITI ${encodeURIComponent(nama)}&body=${encodeURIComponent(txt)}`;
+    btn.innerText='📧 BUKA GMAIL';
+  }
+  setTimeout(()=>{btn.innerText='📧 KIRIM KE GMAIL';btn.disabled=false;},3000);
 };
+
+document.getElementById('reset').onclick=()=>{if(confirm('Reset absen graffiti sampe Juli?')){localStorage.removeItem('smrkubaGraffitiJuli');data={};render();}};
 render();
 </script>
 </body>
