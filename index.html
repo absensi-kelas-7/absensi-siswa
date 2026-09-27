@@ -49,20 +49,44 @@
 <script>
 const LINK_GRUP = "https://chat.whatsapp.com/Ix9OeiN9pbgF0KwvXJZ5Wc";
 let data = [];
-document.getElementById('tgl').innerText = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric',
-      function kirim(){
-  let tgl = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
-  
-  // KALO LUPA TAMBAH KE DAFTAR, AMBIL LANGSUNG DARI FORM
+document.getElementById('tgl').innerText = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+
+function tambah(){
+  let nama = document.getElementById('nama').value.trim();
+  let kelas = document.getElementById('kelas').value;
+  let status = document.querySelector('input[name="status"]:checked').value;
+  if(!nama) return alert('Isi nama dulu pung!');
+  data.push({nama, kelas, status});
+  document.getElementById('nama').value='';
+  render();
+}
+function render(){
+  let list = document.getElementById('list');
+  list.innerHTML='';
+  data.forEach((d,i)=>{
+    let color = d.status=='Sakit'?'text-yellow-400':'text-blue-400';
+    list.innerHTML+=`<div class="flex justify-between items-center bg-zinc-900 p-3 rounded-xl border border-zinc-800"><div><p class="text-sm font-bold">${d.nama} <span class="text-zinc-500 font-normal">${d.kelas}</span></p><p class="text-[11px] ${color}">${d.status}</p></div><button onclick="hapus(${i})" class="bg-zinc-800 px-3 py-1 rounded-full text-xs">✕</button></div>`;
+  });
+  document.getElementById('total').innerText=data.length;
+}
+function hapus(i){ data.splice(i,1); render(); }
+function resetAll(){ if(confirm('Hapus semua?')){ data=[]; render(); } }
+
+function kirim(){
   if(data.length==0){
     let nama = document.getElementById('nama').value.trim();
     let kelas = document.getElementById('kelas').value;
     let status = document.querySelector('input[name="status"]:checked').value;
     if(!nama) return alert('Isi nama dulu pung!');
     data.push({nama, kelas, status});
+    render();
   }
-
+  let tgl = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
   let listGabung = data.map((d,i)=> `${i+1}. ${d.nama} - ${d.kelas} (${d.status})`).join('\n');
-  let pesan = `📋 *ABSENSI KELAS 7 (7A-7D)*\n📅 ${tgl}\n━━━━━━━━━━━━\n\n📝 *DAFTAR TIDAK MASUK (${data.length} siswa):*\n${listGabung}`;
-  navigator.clipboard.writeText(pesan).then(()=>{ window.open(LINK_GRUP, '_blank'); });
-                                                                                   }
+  let pesan = `📋 *ABSENSI KELAS 7 (7A-7D)*\n📅 ${tgl}\n━━━━━━━━━━━━\n\n📝 *DAFTAR TIDAK MASUK (${data.length} siswa):*\n${listGabung}\n\nLink Grup: ${LINK_GRUP}`;
+  let url = `https://wa.me/?text=${encodeURIComponent(pesan)}`;
+  window.open(url, '_blank');
+}
+</script>
+</body>
+</html>
