@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Absen Kelas 7 - Final</title>
+<title>Absen Kelas 7 - Auto</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#0f0f0f] text-white min-h-screen p-4">
@@ -11,7 +11,6 @@
   <div class="bg-purple-600 rounded-[24px] p-6 text-center">
     <h1 class="text-2xl font-bold">📋 ABSEN KELAS 7</h1>
     <p id="tgl" class="text-sm mt-1 opacity-80"></p>
-    <div class="mt-2 bg-black/20 rounded-full px-3 py-1 text-[11px] inline-block">Grup: 7A - 7D</div>
   </div>
 
   <div class="bg-zinc-900 rounded-2xl p-5 mt-4 border border-zinc-800 space-y-3">
@@ -34,52 +33,36 @@
         <label><input type="radio" name="status" value="Izin" class="peer hidden"><div class="peer-checked:bg-blue-600 bg-zinc-800 border border-zinc-700 rounded-xl py-3 text-center text-sm font-bold cursor-pointer">📝 Izin</div></label>
       </div>
     </div>
-    <button onclick="tambah()" class="w-full bg-purple-600 font-bold py-3 rounded-xl text-sm active:scale-95">+ TAMBAH KE DAFTAR</button>
+    <button onclick="tambah()" class="w-full bg-zinc-800 font-bold py-3 rounded-xl text-sm border border-zinc-700">+ TAMBAH KE DAFTAR</button>
   </div>
 
   <div id="list" class="space-y-2 mt-4"></div>
-
   <div class="text-center text-[11px] text-zinc-500 mt-3">Total: <b id="total" class="text-white">0</b> siswa</div>
 
-  <button onclick="kirim()" class="w-full mt-4 bg-green-500 font-bold py-5 rounded-2xl text-lg active:scale-95 transition">
-    📤 KIRIM ABSEN🤧
+  <button onclick="kirim()" class="w-full mt-4 bg-green-500 font-bold py-5 rounded-2xl text-lg active:scale-95">
+    📤 KIRIM OTOMATIS KE WA
   </button>
+  <p class="text-center text-[10px] text-zinc-500 mt-2">Teks udah keisi otomatis, lu tinggal tap KIRIM di WA</p>
   <button onclick="resetAll()" class="w-full mt-2 text-zinc-600 text-[11px] py-2">Reset Semua</button>
 </div>
 
 <script>
 const LINK_GRUP = "https://chat.whatsapp.com/Ix9OeiN9pbgF0KwvXJZ5Wc";
-
 let data = [];
-document.getElementById('tgl').innerText = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
-
-function tambah(){
-  let nama = document.getElementById('nama').value.trim();
-  let kelas = document.getElementById('kelas').value;
-  let status = document.querySelector('input[name="status"]:checked').value;
-  if(!nama) return alert('Isi nama dulu pung!');
-  data.push({nama, kelas, status});
-  document.getElementById('nama').value='';
-  render();
-}
-function render(){
-  let list = document.getElementById('list');
-  list.innerHTML='';
-  data.forEach((d,i)=>{
-    let color = d.status=='Sakit'?'text-yellow-400':'text-blue-400';
-    list.innerHTML+=`<div class="flex justify-between items-center bg-zinc-900 p-3 rounded-xl border border-zinc-800"><div><p class="text-sm font-bold">${d.nama} <span class="text-zinc-500 font-normal">${d.kelas}</span></p><p class="text-[11px] ${color}">${d.status}</p></div><button onclick="hapus(${i})" class="bg-zinc-800 px-3 py-1 rounded-full text-xs">✕</button></div>`;
-  });
-  document.getElementById('total').innerText=data.length;
-}
-function hapus(i){ data.splice(i,1); render(); }
-function resetAll(){ if(confirm('Hapus semua?')){ data=[]; render(); } }
-function kirim(){
-  if(data.length==0) return alert('Tambah siswa dulu pung!');
+document.getElementById('tgl').innerText = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric',
+      function kirim(){
   let tgl = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  
+  // KALO LUPA TAMBAH KE DAFTAR, AMBIL LANGSUNG DARI FORM
+  if(data.length==0){
+    let nama = document.getElementById('nama').value.trim();
+    let kelas = document.getElementById('kelas').value;
+    let status = document.querySelector('input[name="status"]:checked').value;
+    if(!nama) return alert('Isi nama dulu pung!');
+    data.push({nama, kelas, status});
+  }
+
   let listGabung = data.map((d,i)=> `${i+1}. ${d.nama} - ${d.kelas} (${d.status})`).join('\n');
   let pesan = `📋 *ABSENSI KELAS 7 (7A-7D)*\n📅 ${tgl}\n━━━━━━━━━━━━\n\n📝 *DAFTAR TIDAK MASUK (${data.length} siswa):*\n${listGabung}`;
   navigator.clipboard.writeText(pesan).then(()=>{ window.open(LINK_GRUP, '_blank'); });
-}
-</script>
-</body>
-</html>
+                                                                                   }
