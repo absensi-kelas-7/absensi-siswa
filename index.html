@@ -1,92 +1,97 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Absen Kelas 7 - Auto</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<title>SEVENNDE SMRKUBA - 7D</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Impact,Arial Black,sans-serif}
+body{height:100vh;width:100vw;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center}
+#bg{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,#4b1fa7,#1a0a3a);animation:bgmove 6s infinite alternate}
+@keyframes bgmove{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(40deg)}}
+#blur{position:fixed;top:0;left:0;width:100%;height:100%;backdrop-filter:blur(30px);background:rgba(0,0,0,0.3)}
+
+/* Nametag Style kayak foto lu */
+#card{position:relative;z-index:10;width:96vw;max-width:520px;background:white;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.7);transform:rotate(-1deg);animation:float 3s infinite ease-in-out}
+@keyframes float{0%,100%{transform:rotate(-1deg) translateY(0)}50%{transform:rotate(1deg) translateY(-8px)}}
+#top-red{background:#e10600;padding:18px 20px 10px;text-align:center;position:relative}
+#top-red h1{color:white;font-size:54px;letter-spacing:4px;line-height:1;margin:0;text-shadow:2px 2px 0 rgba(0,0,0,0.2)}
+#top-red p{color:white;font-size:18px;margin-top:2px;letter-spacing:2px;font-family:Arial Black}
+#spray{position:absolute;left:50%;top:68%;transform:translateX(-50%);width:180px;height:18px;background:#a80000;border-radius:50%;filter:blur(3px);opacity:0.8}
+
+#mid{padding:15px 20px 10px;background:white;position:relative;min-height:160px;display:flex;align-items:center;justify-content:center}
+#graffiti{font-family:Impact; font-size:52px; line-height:0.85; color:#4b1fa7; text-transform:lowercase; transform:rotate(-3deg) skew(-5deg); text-shadow:3px 3px 0 #fff, 6px 6px 0 #2a0f5e, 0 0 20px rgba(75,31,167,0.5); letter-spacing:-1px; text-align:center}
+#angkatan{position:absolute;right:10px;top:15px;writing-mode:vertical-rl;font-size:11px;letter-spacing:3px;font-family:Arial Black;color:#111;font-weight:900}
+#bottom-red{background:#e10600;height:26px;border-radius:0 0 28px 28px;width:100%}
+
+#absen-area{padding:20px;background:#f8f8ff}
+#grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day{background:white;border:2px solid #e10600;border-radius:14px;padding:10px 2px;text-align:center;transition:0.4s;transform:scale(0);animation:pop 0.5s forwards;cursor:pointer}
+.day:nth-child(1){animation-delay:0.1s}.day:nth-child(2){animation-delay:0.2s}.day:nth-child(3){animation-delay:0.3s}.day:nth-child(4){animation-delay:0.4s}.day:nth-child(5){animation-delay:0.5s}.day:nth-child(6){animation-delay:0.6s}.day:nth-child(7){animation-delay:0.7s}
+@keyframes pop{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.day.active{background:#e10600;color:white;transform:scale(1.1)!important;box-shadow:0 5px 15px rgba(225,6,0,0.4);animation:pulse 1s infinite}
+.day.done{background:#4b1fa7;color:white;border-color:#4b1fa7;box-shadow:0 0 15px #4b1fa7}
+@keyframes pulse{0%,100%{transform:scale(1.1)}50%{transform:scale(1.15)}}
+.day b{font-size:18px;display:block}.day span{font-size:9px}
+
+#btn{width:100%;margin-top:15px;padding:16px;background:#111;color:white;border:none;border-radius:50px;font-size:16px;font-weight:900;letter-spacing:2px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.3);transition:0.2s}
+#btn:active{transform:scale(0.95)}
+#btn.done{background:#4b1fa7}
+#bar{height:8px;background:#eee;border-radius:10px;margin-top:12px;overflow:hidden}
+#fill{height:100%;width:0%;background:linear-gradient(90deg,#e10600,#4b1fa7);transition:1s}
+</style>
 </head>
-<body class="bg-[#0f0f0f] text-white min-h-screen p-4">
-<div class="max-w-md mx-auto w-full">
-  <div class="bg-purple-600 rounded-[24px] p-6 text-center">
-    <h1 class="text-2xl font-bold">📋 ABSEN KELAS 7</h1>
-    <p id="tgl" class="text-sm mt-1 opacity-80"></p>
+<body>
+<div id="bg"></div>
+<div id="blur"></div>
+
+<div id="card">
+  <div id="top-red">
+    <h1>HELLO</h1>
+    <p>MY CLASS</p>
+    <div id="spray"></div>
   </div>
-
-  <div class="bg-zinc-900 rounded-2xl p-5 mt-4 border border-zinc-800 space-y-3">
-    <div class="grid grid-cols-2 gap-3">
-      <div>
-        <label class="text-[11px] text-zinc-400">Nama Siswa</label>
-        <input id="nama" type="text" placeholder="Nama siswa..." class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-3 text-sm outline-none focus:border-purple-500">
-      </div>
-      <div>
-        <label class="text-[11px] text-zinc-400">Kelas</label>
-        <select id="kelas" class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-3 text-sm outline-none">
-          <option>7A</option><option>7B</option><option>7C</option><option>7D</option>
-        </select>
-      </div>
-    </div>
-    <div>
-      <label class="text-[11px] text-zinc-400">Status</label>
-      <div class="grid grid-cols-2 gap-2 mt-1">
-        <label><input type="radio" name="status" value="Sakit" checked class="peer hidden"><div class="peer-checked:bg-yellow-600 bg-zinc-800 border border-zinc-700 rounded-xl py-3 text-center text-sm font-bold cursor-pointer">🤒 Sakit</div></label>
-        <label><input type="radio" name="status" value="Izin" class="peer hidden"><div class="peer-checked:bg-blue-600 bg-zinc-800 border border-zinc-700 rounded-xl py-3 text-center text-sm font-bold cursor-pointer">📝 Izin</div></label>
-      </div>
-    </div>
-    <button onclick="tambah()" class="w-full bg-zinc-800 font-bold py-3 rounded-xl text-sm border border-zinc-700">+ TAMBAH KE DAFTAR</button>
+  <div id="mid">
+    <div id="graffiti">sevennde<br>smrkuba</div>
+    <div id="angkatan">ANGKATAN 2026</div>
   </div>
-
-  <div id="list" class="space-y-2 mt-4"></div>
-  <div class="text-center text-[11px] text-zinc-500 mt-3">Total: <b id="total" class="text-white">0</b> siswa</div>
-
-  <button onclick="kirim()" class="w-full mt-4 bg-green-500 font-bold py-5 rounded-2xl text-lg active:scale-95">
-    📤 KIRIM OTOMATIS KE WA
-  </button>
-  <p class="text-center text-[10px] text-zinc-500 mt-2">Teks udah keisi otomatis, lu tinggal tap KIRIM di WA</p>
-  <button onclick="resetAll()" class="w-full mt-2 text-zinc-600 text-[11px] py-2">Reset Semua</button>
+  <div id="bottom-red"></div>
+  
+  <div id="absen-area">
+    <div id="grid"></div>
+    <button id="btn">ABSEN HARI INI 👇</button>
+    <div id="bar"><div id="fill"></div></div>
+    <p style="text-align:center;font-family:sans-serif;font-size:11px;margin-top:8px;color:#666">Streak: <span id="st">0</span>/7 • SEVENNDE SMRKUBA</p>
+  </div>
 </div>
 
 <script>
-const LINK_GRUP = "https://chat.whatsapp.com/Ix9OeiN9pbgF0KwvXJZ5Wc";
-let data = [];
-document.getElementById('tgl').innerText = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
-
-function tambah(){
-  let nama = document.getElementById('nama').value.trim();
-  let kelas = document.getElementById('kelas').value;
-  let status = document.querySelector('input[name="status"]:checked').value;
-  if(!nama) return alert('Isi nama dulu pung!');
-  data.push({nama, kelas, status});
-  document.getElementById('nama').value='';
-  render();
-}
+let days=["SEN","SEL","RAB","KAM","JUM","SAB","MIN"];
+let data=JSON.parse(localStorage.getItem('smrkuba7d')||'[]');
+let grid=document.getElementById('grid');
 function render(){
-  let list = document.getElementById('list');
-  list.innerHTML='';
-  data.forEach((d,i)=>{
-    let color = d.status=='Sakit'?'text-yellow-400':'text-blue-400';
-    list.innerHTML+=`<div class="flex justify-between items-center bg-zinc-900 p-3 rounded-xl border border-zinc-800"><div><p class="text-sm font-bold">${d.nama} <span class="text-zinc-500 font-normal">${d.kelas}</span></p><p class="text-[11px] ${color}">${d.status}</p></div><button onclick="hapus(${i})" class="bg-zinc-800 px-3 py-1 rounded-full text-xs">✕</button></div>`;
-  });
-  document.getElementById('total').innerText=data.length;
-}
-function hapus(i){ data.splice(i,1); render(); }
-function resetAll(){ if(confirm('Hapus semua?')){ data=[]; render(); } }
-
-function kirim(){
-  if(data.length==0){
-    let nama = document.getElementById('nama').value.trim();
-    let kelas = document.getElementById('kelas').value;
-    let status = document.querySelector('input[name="status"]:checked').value;
-    if(!nama) return alert('Isi nama dulu pung!');
-    data.push({nama, kelas, status});
-    render();
+  grid.innerHTML='';
+  for(let i=0;i<7;i++){
+    let d=document.createElement('div'); d.className='day';
+    if(data.includes(i)) d.classList.add('done');
+    if(i==data.length && data.length<7) d.classList.add('active');
+    d.innerHTML=`<b>${i+1}</b><span>${days[i]}</span><div style="margin-top:3px;font-size:16px">${data.includes(i)?'✅':i==data.length?'🔥':'🔒'}</div>`;
+    grid.appendChild(d);
   }
-  let tgl = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
-  let listGabung = data.map((d,i)=> `${i+1}. ${d.nama} - ${d.kelas} (${d.status})`).join('\n');
-  let pesan = `📋 *ABSENSI KELAS 7 (7A-7D)*\n📅 ${tgl}\n━━━━━━━━━━━━\n\n📝 *DAFTAR TIDAK MASUK (${data.length} siswa):*\n${listGabung}\n\nLink Grup: ${LINK_GRUP}`;
-  let url = `https://wa.me/?text=${encodeURIComponent(pesan)}`;
-  window.open(url, '_blank');
+  document.getElementById('fill').style.width=(data.length/7*100)+'%';
+  document.getElementById('st').innerText=data.length;
+  let b=document.getElementById('btn');
+  if(data.length>=7){b.innerText='🎉 TAMAT 7D ANGKATAN 2026!'; b.classList.add('done'); b.disabled=true;}
+  else b.innerText=`ABSEN HARI ${data.length+1} 🔥`;
 }
+document.getElementById('btn').onclick=()=>{
+  if(data.length>=7) return;
+  data.push(data.length);
+  localStorage.setItem('smrkuba7d',JSON.stringify(data));
+  if(navigator.vibrate) navigator.vibrate([40,20,40]);
+  document.getElementById('card').animate([{transform:'scale(1) rotate(-1deg)'},{transform:'scale(1.05) rotate(1deg)'},{transform:'scale(1) rotate(-1deg)'}],{duration:300});
+  render();
+};
+render();
 </script>
 </body>
 </html>
