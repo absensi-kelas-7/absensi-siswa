@@ -8,20 +8,17 @@
 </head>
 <body class="bg-[#0f0f0f] text-white min-h-screen p-4">
 <div class="max-w-md mx-auto w-full">
-
-  <!-- HEADER -->
   <div class="bg-purple-600 rounded-[24px] p-6 text-center">
     <h1 class="text-2xl font-bold">📋 ABSEN KELAS 7</h1>
     <p id="tgl" class="text-sm mt-1 opacity-80"></p>
     <div class="mt-2 bg-black/20 rounded-full px-3 py-1 text-[11px] inline-block">Grup: 7A - 7D</div>
   </div>
 
-  <!-- FORM INPUT LENGKAP -->
   <div class="bg-zinc-900 rounded-2xl p-5 mt-4 border border-zinc-800 space-y-3">
     <div class="grid grid-cols-2 gap-3">
       <div>
         <label class="text-[11px] text-zinc-400">Nama Siswa</label>
-        <input id="nama" type="text" placeholder="Adiasta" class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-3 text-sm outline-none focus:border-purple-500">
+        <input id="nama" type="text" placeholder="Nama siswa..." class="w-full mt-1 bg-zinc-800 border border-zinc-700 rounded-xl px-3 py-3 text-sm outline-none focus:border-purple-500">
       </div>
       <div>
         <label class="text-[11px] text-zinc-400">Kelas</label>
@@ -30,7 +27,6 @@
         </select>
       </div>
     </div>
-
     <div>
       <label class="text-[11px] text-zinc-400">Status</label>
       <div class="grid grid-cols-4 gap-2 mt-1">
@@ -40,11 +36,9 @@
         <label><input type="radio" name="status" value="Alpha" class="peer hidden"><div class="peer-checked:bg-red-600 bg-zinc-800 border border-zinc-700 rounded-xl py-2.5 text-center text-xs font-bold cursor-pointer">Alpha</div></label>
       </div>
     </div>
-
     <button onclick="tambah()" class="w-full bg-purple-600 font-bold py-3 rounded-xl text-sm active:scale-95">+ TAMBAH KE DAFTAR</button>
   </div>
 
-  <!-- REKAP COUNTER -->
   <div class="grid grid-cols-4 gap-2 mt-4 text-[10px] text-center">
     <div class="bg-green-500/20 border border-green-500/30 text-green-400 py-2 rounded-xl">Hadir<br><b id="cH" class="text-sm">0</b></div>
     <div class="bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 py-2 rounded-xl">Sakit<br><b id="cS" class="text-sm">0</b></div>
@@ -52,11 +46,9 @@
     <div class="bg-red-500/20 border border-red-500/30 text-red-400 py-2 rounded-xl">Alpha<br><b id="cA" class="text-sm">0</b></div>
   </div>
 
-  <!-- LIST SISWA -->
   <div id="list" class="space-y-2 mt-4"></div>
 
-  <!-- KIRIM -->
-  <button onclick="kirim()" class="w-full mt-6 bg-green-500 font-bold py-5 rounded-2xl text-lg active:scale-95 transition shadow-lg">
+  <button onclick="kirim()" class="w-full mt-6 bg-green-500 font-bold py-5 rounded-2xl text-lg active:scale-95 transition">
     📤 KIRIM ABSEN KE GRUP WA 🤧
   </button>
   <button onclick="resetAll()" class="w-full mt-2 text-zinc-600 text-[11px] py-2">Reset Semua</button>
@@ -66,7 +58,6 @@
 const LINK_GRUP = "https://chat.whatsapp.com/CAckr81mrKSHL6nh7YpV79";
 let data = [];
 document.getElementById('tgl').innerText = new Date().toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
-
 function tambah(){
   let nama = document.getElementById('nama').value.trim();
   let kelas = document.getElementById('kelas').value;
@@ -83,16 +74,12 @@ function render(){
   data.forEach((d,i)=>{
     if(d.status=='Hadir')H++; if(d.status=='Sakit')S++; if(d.status=='Izin')I++; if(d.status=='Alpha')A++;
     let color = d.status=='Hadir'?'text-green-400': d.status=='Sakit'?'text-yellow-400': d.status=='Izin'?'text-blue-400':'text-red-400';
-    list.innerHTML+=`<div class="flex justify-between items-center bg-zinc-900 p-3 rounded-xl border border-zinc-800">
-      <div><p class="text-sm font-bold">${d.nama} <span class="text-zinc-500 font-normal">${d.kelas}</span></p><p class="text-[11px] ${color}">${d.status}</p></div>
-      <button onclick="hapus(${i})" class="bg-zinc-800 px-3 py-1 rounded-full text-xs">✕</button>
-    </div>`;
+    list.innerHTML+=`<div class="flex justify-between items-center bg-zinc-900 p-3 rounded-xl border border-zinc-800"><div><p class="text-sm font-bold">${d.nama} <span class="text-zinc-500 font-normal">${d.kelas}</span></p><p class="text-[11px] ${color}">${d.status}</p></div><button onclick="hapus(${i})" class="bg-zinc-800 px-3 py-1 rounded-full text-xs">✕</button></div>`;
   });
   document.getElementById('cH').innerText=H; document.getElementById('cS').innerText=S; document.getElementById('cI').innerText=I; document.getElementById('cA').innerText=A;
 }
 function hapus(i){ data.splice(i,1); render(); }
 function resetAll(){ if(confirm('Hapus semua?')){ data=[]; render(); } }
-
 function kirim(){
   if(data.length==0) return alert('Tambah siswa dulu pung!');
   let tgl = new Date().toLocaleDateString('id-ID');
@@ -100,13 +87,8 @@ function kirim(){
   let S = data.filter(d=>d.status=='Sakit');
   let I = data.filter(d=>d.status=='Izin');
   let A = data.filter(d=>d.status=='Alpha');
-
   let pesan = `*📋 ABSENSI KELAS 7 (7A-7D)*\n📅 ${tgl}\n━━━━━━━━━━━━\n\n✅ HADIR (${H.length}): ${H.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}\n🤒 SAKIT (${S.length}): ${S.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}\n📝 IZIN (${I.length}): ${I.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}\n❌ ALPHA (${A.length}): ${A.map(d=>d.nama+'-'+d.kelas).join(', ')||'-'}`;
-
-  navigator.clipboard.writeText(pesan).then(()=>{
-    window.open(LINK_GRUP, '_blank');
-    alert('✅ Rekap '+data.length+' siswa ke-copy! Paste di grup!');
-  });
+  navigator.clipboard.writeText(pesan).then(()=>{ window.open(LINK_GRUP, '_blank'); });
 }
 </script>
 </body>
